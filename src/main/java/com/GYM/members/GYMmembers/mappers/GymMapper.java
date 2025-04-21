@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class GymMapper {
-    public Gym GymToMapper(GymDto gymDto){
+    public Gym mapToMapper(GymDto gymDto){
         Gym gym = new Gym();
         gym.setId(gymDto.getId());
         gym.setName(gymDto.getName());
