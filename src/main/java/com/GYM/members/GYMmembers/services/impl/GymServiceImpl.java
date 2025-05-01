@@ -31,7 +31,9 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public GymDto getGymById(int id) {
-        return null;
+        Gym gym = gymRepository.findById(id).orElseThrow(() -> new RuntimeException("Gym Member of this id does not exist"));
+        //return null;
+        return gymMapper.mapToGymDto(gym);
     }
 
     @Override

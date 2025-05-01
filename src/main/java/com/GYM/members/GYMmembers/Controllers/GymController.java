@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/gyms")
@@ -18,10 +15,17 @@ public class GymController {
     private GymService gymService;
 
     @PostMapping
-    public ResponseEntity<GymDto> addgym(@RequestBody GymDto gymDto){
+    public ResponseEntity<GymDto> addGym(@RequestBody GymDto gymDto){
         return new ResponseEntity<>(gymService.createGym(gymDto), HttpStatus.CREATED);
 
 
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<GymDto> getGym(@PathVariable int id){
+//        GymDto gymDto = gymService.getGymById(id);
+//        return ResponseEntity.ok(gymDto);
+
+        return ResponseEntity.ok(gymService.getGymById(id));
+    }
 }
