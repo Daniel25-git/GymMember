@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/gyms")
 public class GymController {
@@ -17,8 +19,6 @@ public class GymController {
     @PostMapping
     public ResponseEntity<GymDto> addGym(@RequestBody GymDto gymDto){
         return new ResponseEntity<>(gymService.createGym(gymDto), HttpStatus.CREATED);
-
-
     }
 
     @GetMapping("/{id}")
@@ -27,5 +27,22 @@ public class GymController {
 //        return ResponseEntity.ok(gymDto);
 
         return ResponseEntity.ok(gymService.getGymById(id));
+    }
+    @GetMapping
+    public ResponseEntity<List<GymDto>>  getAllGyms() {
+        List<GymDto> gymDtos = gymService.getAllGyms();
+        return ResponseEntity.ok(gymDtos);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<GymDto> updateGymById(@PathVariable int id, @RequestBody GymDto gymDto){
+        GymDto updatedGymDto = gymService.updateGymById(id, gymDto);
+        return ResponseEntity.ok(updatedGymDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public  ResponseEntity<String> deleteGymById(@PathVariable int id){
+        String response = gymService.deleteGymById(id);
+        return ResponseEntity.ok(response);
     }
 }

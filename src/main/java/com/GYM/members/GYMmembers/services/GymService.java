@@ -8,6 +8,6 @@ public interface GymService {
     GymDto createGym(GymDto gymDto);
     List<GymDto> getAllGyms();
     GymDto getGymById(int id);
-    GymDto updateGymById(int id);
+    GymDto updateGymById(int id, GymDto gymDto);
     String deleteGymById(int id);
 }

@@ -26,7 +26,9 @@ public class GymServiceImpl implements GymService {
 
     @Override
     public List<GymDto> getAllGyms() {
-        return List.of();
+        List<Gym> gyms = gymRepository.findAll();
+        List<GymDto> gymDtos = gyms.stream().map(gymMapper::mapToGymDto).toList();
+        return gymDtos;
     }
 
     @Override
@@ -37,12 +39,24 @@ public class GymServiceImpl implements GymService {
     }
 
     @Override
-    public GymDto updateGymById(int id) {
-        return null;
+    public GymDto updateGymById(int id, GymDto gymDto) {
+        Gym gym = gymRepository.findById(id).orElseThrow(() -> new RuntimeException("Gym Member of this id does not exist"));
+        gym.setName(gymDto.getName());
+        gym.setAddress(gymDto.getAddress());
+
+        Gym savedGym = gymRepository.save(gym);
+
+        return gymMapper.mapToGymDto(savedGym);
     }
 
     @Override
     public String deleteGymById(int id) {
-        return "";
+        if(gymRepository.existsById(id)){
+            gymRepository.deleteById(id);
+            return "GYM with id " + id +" Successfully deleted";
+        }
+        else {
+            return "No record of the id found";
+        }
     }
 }
